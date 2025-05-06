@@ -2,8 +2,22 @@
 
 I made it for studying `Ruby`.
 
-A powerful API CLI for Ruby developers.
-GraphQL, REST, custom headers, cookies, status check, response save — all in one.
+[![Homebrew](https://img.shields.io/badge/homebrew-install-brightgreen)](https://github.com/aki-mia/homebrew-apiq)
+[![mise](https://img.shields.io/badge/mise-install-brightgreen)](https://mise.jdx.dev/)
+[![Ruby](https://img.shields.io/badge/ruby-%3E=3.3-red)](https://www.ruby-lang.org/en/)
+
+**A developer-friendly CLI for making REST and GraphQL API requests.**
+Supports profiles, headers, cookies, file uploads, logging, and more.
+
+## Features
+
+- Simple `curl` alternative in Ruby
+- REST + GraphQL support
+- Profile switching (`dev`, `stg`, `prod`, etc.)
+- Custom headers, cookies, and content types
+- Pretty-printed JSON response
+- Save response body to file
+- CLI-friendly: `--only-status`, `--verbose`, etc.
 
 ## Install via Homebrew
 
@@ -107,19 +121,10 @@ source ~/.zshrc
 apiq get /ping
 ```
 
-
 ## Advanced Tips
 
 - Use `.env` for sensitive tokens
 - Combine with `jq` for JSON filtering
 - Works great with `mise`, `direnv`
-
-
-
-
-
-
-
-
 
 MIT License
