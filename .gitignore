@@ -3,3 +3,9 @@
 .history/
 
 .bundle/
+*.swp
+*.log
+*.tmp
+config.yml
+.env
+release/

@@ -1,0 +1,5 @@
+default: dev
+profiles:
+  dev:
+    base_url: "http://localhost:3000"
+    token: "your_dev_token"

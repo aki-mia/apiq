@@ -1,0 +1,39 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Archive release
+        run: |
+          mkdir -p release
+          tar -czvf release/apiq-${{ github.ref_name }}.tar.gz bin lib config.yml
+
+      - name: Compute sha256
+        id: hash
+        run: |
+          SHASUM=$(shasum -a 256 release/apiq-${{ github.ref_name }}.tar.gz | cut -d ' ' -f1)
+          echo "sha256=${SHASUM}" >> $GITHUB_OUTPUT
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/apiq-${{ github.ref_name }}.tar.gz
+
+      - name: Update homebrew formula
+        uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: apiq
+          homebrew-tap: aki-mia/homebrew-apiq
+          tag-name: ${{ github.ref_name }}
+          formula-path: Formula/apiq.rb
+        env:
+          COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
