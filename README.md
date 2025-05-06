@@ -121,6 +121,82 @@ source ~/.zshrc
 apiq get /ping
 ```
 
+## 🛠️ Releasing to Homebrew (For Maintainers)
+
+This section explains how to manually package and publish a new version of `apiq` for Homebrew distribution.
+
+### 1. Create a Release Archive (`.tar.gz`)
+
+Run the following from the project root:
+
+```bash
+mkdir -p release
+tar -czvf release/apiq-0.1.0.tar.gz bin lib
+```
+
+This creates a compressed archive with the `bin/` and `lib/` directories. Do **not** include `config.yml`.
+
+---
+
+### 2. Generate SHA256 Checksum
+
+```bash
+shasum -a 256 release/apiq-0.1.0.tar.gz
+```
+
+Example output:
+
+```
+7a1c894d0f0e12c8b012df5c82a537a65d0e7f71c242fca0f0f734fab63f72b1  release/apiq-0.1.0.tar.gz
+```
+
+Copy the hash value (the first part of the output).
+
+---
+
+### 3. Update the Homebrew Formula
+
+Edit `homebrew-apiq/Formula/apiq.rb`:
+
+```ruby
+class Apiq < Formula
+  desc "A powerful and easy-to-use API CLI tool for developers"
+  homepage "https://github.com/YOURNAME/apiq"
+  url "https://github.com/YOURNAME/apiq/releases/download/v0.1.0/apiq-0.1.0.tar.gz"
+  sha256 "your-computed-sha256-hash"
+  version "0.1.0"
+
+  depends_on "ruby"
+
+  def install
+    bin.install "bin/apiq"
+    lib.install Dir["lib/*"]
+  end
+
+  test do
+    system "#{bin}/apiq", "--help"
+  end
+end
+```
+
+---
+
+### 4. Commit and Push the Formula
+
+```bash
+git add Formula/apiq.rb
+git commit -m "Update Formula for v0.1.0"
+git push origin main
+```
+
+Once merged into the `main` branch, Homebrew users will be able to install it via:
+
+```bash
+brew tap aki-mia/apiq
+brew install apiq
+```
+
+
 ## Advanced Tips
 
 - Use `.env` for sensitive tokens
