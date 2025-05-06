@@ -141,7 +141,8 @@ This creates a compressed archive with the `bin/` and `lib/` directories. Do **n
 ### 2. Generate SHA256 Checksum
 
 ```bash
-shasum -a 256 release/apiq-0.1.0.tar.gz
+curl -L -o apiq.tar.gz https://github.com/aki-mia/apiq/archive/refs/tags/v0.1.0.tar.gz
+shasum -a 256 apiq.tar.gz
 ```
 
 Example output:
