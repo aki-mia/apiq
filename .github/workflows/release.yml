@@ -19,7 +19,7 @@ jobs:
       - name: Archive release
         run: |
           mkdir -p release
-          tar -czvf release/apiq-${{ github.ref_name }}.tar.gz bin lib config.yml
+          tar -czvf release/apiq-${{ github.ref_name }}.tar.gz bin lib
 
       - name: Compute sha256
         id: hash
