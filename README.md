@@ -192,10 +192,10 @@ git push origin main
 Once merged into the `main` branch, Homebrew users will be able to install it via:
 
 ```bash
+brew untap aki-mia/apiq || true
 brew tap aki-mia/apiq
 brew install apiq
 ```
-
 
 ## Advanced Tips
 
